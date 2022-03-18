@@ -8,14 +8,20 @@ package com.mycompany.os.project.rework;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  *
  * @author Tato
  */
 public class Main extends javax.swing.JFrame {
-   Reloj hora = new Reloj();
+
+    Reloj hora = new Reloj();
+    Memoria memoria = new Memoria();
+
     public Main() {
         initComponents();
+        memoria.iniciarMemoria(100, 5, 10);
+        memoria.start();
         hora.start();
         Memory.setText(" ");
     }
@@ -52,6 +58,7 @@ public class Main extends javax.swing.JFrame {
         Inicial = new javax.swing.JLabel();
         Memory = new javax.swing.JLabel();
         Final = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         jLabel7.setFont(new java.awt.Font("Palatino Linotype", 2, 14)); // NOI18N
         jLabel7.setText("Limite");
@@ -180,6 +187,13 @@ public class Main extends javax.swing.JFrame {
         Final.setFont(new java.awt.Font("Palatino Linotype", 2, 12)); // NOI18N
         Final.setText("Memory");
 
+        jButton2.setText("Agregar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -197,16 +211,19 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(Final))
                 .addGap(18, 18, 18)
                 .addComponent(Memory, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(HourSystem))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(HourSystem)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -220,28 +237,34 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(101, 101, 101)
-                                        .addComponent(jButton1)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Final)
+                                .addGap(18, 18, 18)
+                                .addComponent(Inicial))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Memory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(5, 5, 5)))
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(101, 101, 101)
+                                .addComponent(jButton1)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel9)
                                     .addComponent(HourSystem))
-                                .addGap(0, 4, Short.MAX_VALUE))
+                                .addGap(0, 45, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Final)))
-                        .addGap(18, 18, 18)
-                        .addComponent(Inicial))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Memory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(5, 5, 5)))
-                .addContainerGap())
+                                .addComponent(jButton2)
+                                .addGap(32, 32, 32))))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -257,6 +280,10 @@ public class Main extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        memoria.AddProcess();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -292,27 +319,31 @@ public class Main extends javax.swing.JFrame {
             }
         });
     }
-    
+
     public class Reloj extends Thread {
+
         Calendar calendario;
-        
+
         @Override
         public void run() {
             while (true) {
                 String horaSistema = "";
                 calendario = Calendar.getInstance();
-                if (calendario.get(Calendar.HOUR_OF_DAY)<10)
-                    horaSistema += String.valueOf("0"+calendario.get(Calendar.HOUR_OF_DAY)) + ":";
-                else
+                if (calendario.get(Calendar.HOUR_OF_DAY) < 10) {
+                    horaSistema += String.valueOf("0" + calendario.get(Calendar.HOUR_OF_DAY)) + ":";
+                } else {
                     horaSistema += String.valueOf(calendario.get(Calendar.HOUR_OF_DAY)) + ":";
-                if (calendario.get(Calendar.MINUTE)<10)
-                    horaSistema += String.valueOf("0"+calendario.get(Calendar.MINUTE)) + ":";
-                else
+                }
+                if (calendario.get(Calendar.MINUTE) < 10) {
+                    horaSistema += String.valueOf("0" + calendario.get(Calendar.MINUTE)) + ":";
+                } else {
                     horaSistema += String.valueOf(calendario.get(Calendar.MINUTE)) + ":";
-                if (calendario.get(Calendar.SECOND)<10)
-                    horaSistema += String.valueOf("0"+calendario.get(Calendar.SECOND)) + ":";
-                else
+                }
+                if (calendario.get(Calendar.SECOND) < 10) {
+                    horaSistema += String.valueOf("0" + calendario.get(Calendar.SECOND)) + ":";
+                } else {
                     horaSistema += String.valueOf(calendario.get(Calendar.SECOND)) + ":";
+                }
                 horaSistema += String.valueOf(calendario.get(Calendar.MILLISECOND)) + " hrs";
                 HourSystem.setText(horaSistema);
                 try {
@@ -335,6 +366,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField Limite;
     private javax.swing.JLabel Memory;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

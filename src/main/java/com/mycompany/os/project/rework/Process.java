@@ -11,72 +11,80 @@ import java.util.Random;
  *
  * @author Paolo_Veliz
  */
-public class Process extends Thread{
+public class Process extends Thread {
+
     //-------------------CREACION DE VARIABLES---------------------
-    private int process_id;
-    private int process_priority;
-    private String process_name;
-    private String start_time;
-    private int process_size;
-    private int missing_time;
+    private String process_id;
+    private Integer start_time;
+    private Integer process_size;
+    private Integer missing_time;
     private String process_status;
-    private int instructions;
-    
-    public Process(String start_time, int process_id, int process_size){
-        this.start_time = start_time;
+    private Integer quantum;
+
+    public Process(String process_id) {
+        Random random = new Random();
+        this.process_size = (int) Math.floor(Math.random() * (2 - 10 + 1) + 10);
         this.process_id = process_id;
-         this.process_size = process_size;
-         
+        this.missing_time = this.process_size;
+        this.process_status = "Listo";
+        System.out.println("Proceso creado: " + this.process_id + " - Tiempo: " + this.process_size);
     }
-    
-    public void setStart_time(String start_time) {
-        this.start_time = start_time;
+
+    public String getProcess_id() {
+        return process_id;
     }
-    public void setProcess_id(int process_id) {
+
+    public void setProcess_id(String process_id) {
         this.process_id = process_id;
     }
-    public void setProcess_size(int process_size) {
+
+    public int getStart_time() {
+        return start_time;
+    }
+
+    public void setStart_time(Integer start_time) {
+        this.start_time = start_time;
+    }
+
+    public int getProcess_size() {
+        return process_size;
+    }
+
+    public void setProcess_size(Integer process_size) {
         this.process_size = process_size;
-        this.missing_time = process_size;
     }
-    public void setProcess_status(String process_status) {
-        this.process_status = process_status;
+
+    public int getMissing_time() {
+        return missing_time;
+    }
+
+    public void setMissing_time(Integer missing_time) {
+        this.missing_time = missing_time;
     }
 
     public String getProcess_status() {
         return process_status;
     }
-    public int getProcess_id() {
-        return process_id;
+
+    public void setProcess_status(String process_status) {
+        this.process_status = process_status;
     }
-    public String getStart_time() {
-        return start_time;
+
+    public Integer getQuantum() {
+        return quantum;
     }
-    public int getProcess_size() {
-        return process_size;
+
+    public void setQuantum(Integer quantum) {
+        this.quantum = quantum;
     }
-    
-    public int getProcess_instructions(){
-        return instructions;
-    }
-    
+
     @Override
-    public void run(){
+    public void run() {
         int i = 0;
-        for (i = 0; i <= missing_time; i++){
-            System.out.println("Process => " + process_name + " id => " + process_id + "Running, Time running => " + i);
+        for (i = 0; i <= missing_time; i++) {
+            // sleep(quantum)
+            System.out.println("Process - id => " + process_id + "Running, Time running => " + i);
         }
         this.missing_time = missing_time - i;
     }
-    
-    public void NewProcess(Process p){
-        Random random = new Random();
-        p.process_size = (int) Math.floor(Math.random()*(2-10+1)+10);
-        p.instructions = p.process_size;
-
-    }
-    
-
-
-    
 }
