@@ -27,6 +27,9 @@ public class Memoria extends Thread {
     private boolean run = false;
     private int pointer;
     private Integer counter;
+    private int cantidad =1;
+    private int quantum2;
+    private int x = 2;
 
     public Memoria() {
         this.counter = 0;
@@ -83,16 +86,18 @@ public class Memoria extends Thread {
 
     public void QuantumTime() {
         Random random = new Random();
-        // this.quantum = (int) Math.floor(Math.random() * (4 - 9 + 1) + 9);
-        this.quantum = 1;
+        this.quantum = (int) Math.floor(Math.random() * (3 - 6 + 1) + 6);
+        this.quantum2 = this.quantum;
         System.out.println("Duracion del quantum: " + this.quantum + "s");
     }
 
     public void AddProcess() {
         Process process = new Process("P" + counter);
         if (process.getProcess_size() < disponible) {
+            System.out.println("El proceso " + process.getProcess_id() + "empieza en la dirección: " + this.pointer);
             this.disponible = disponible - process.getProcess_size();
             this.pointer = pointer + process.getProcess_size();
+            System.out.println("El proceso " + process.getProcess_id() + "termina en la dirección: " + (this.pointer - 1));
             procesos.add(process);
             this.counter = this.counter + 1;
             System.out.println("Nuevo espacio disponible: " + this.disponible);
@@ -106,13 +111,51 @@ public class Memoria extends Thread {
     public void run() {
         while (run) {
             try {
-                sleep(this.quantum * 1000);
-                /*
-                    procesos.get(2).start();
-                    Activar el proceso si posible
-                    Adentro del proceso va a ir disminuyendo el tiempo
+                sleep(2000);
+                //la primera comprobación es la del tiempo restante debido a que se
+                //hace el cambio del proceso sin importar si todavía queda tiempo en el quantum
+                if(this.procesos.size() > 2){
+                    if(this.procesos.get(x).getMissing_time() != 0){
+                        if(this.quantum2 != 0){
+                            //Aqui empieza a ejecutar las instrucciones
+                            System.out.println("Poceso: "+ this.procesos.get(x).getProcess_id());
+                            System.out.println("Instrucciones: " + this.procesos.get(x).getProcess_size());
+                            System.out.println("Procesando instruccion no.: " + cantidad);
+                            this.procesos.get(x).setMissing_time( this.procesos.get(x).getMissing_time()-1);
+                            cantidad = cantidad +1;
+                            this.quantum2 = this.quantum2 - 1;
+                        }else{
+                            //Si quedan instrucciones restantes pero se acabo el tiempo del quantum
+                            //reincia el quantum, y se pasa al proceso siguiente
+                            this.quantum2 = this.quantum;
+                            int ultimo = this.procesos.size() - 1;
+                            if(this.x >= ultimo  ){
+                                this.x = 2;                              
+                            }else{
+                                this.x = x + 1;                           
+                            }
+                            cantidad = 1;
+                            System.out.println("Activador encendido");
+                           
+                        }                
+                        
+                    }else{
+                        //De lo contrario se elimina el proceso y reinicia el quantum
+                        this.quantum2 = this.quantum;
+                        this.disponible = this.disponible + this.procesos.get(x).getProcess_size();
+                        System.out.println("Disponible: " + this.disponible);
+                        this.procesos.remove(x);
+                        System.out.println("Activador encendido");
+                        cantidad = 1; 
+                        int ultimo = this.procesos.size() - 1;
+                        if(this.x >=  ultimo){
+                            this.x = 2;
+                         }
                 
-                */
+                    }
+                 
+                }
+
                 System.out.println(procesos.size());
             } catch (InterruptedException ex) {
                 Logger.getLogger(Memoria.class.getName()).log(Level.SEVERE, null, ex);
