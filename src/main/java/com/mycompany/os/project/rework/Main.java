@@ -23,6 +23,7 @@ public class Main extends javax.swing.JFrame {
     Reloj hora = new Reloj();
     Memoria memoria = new Memoria();
     Simulador simulador = new Simulador();
+    int ProgressBar;
 
     public Main() {
         initComponents();
@@ -31,7 +32,7 @@ public class Main extends javax.swing.JFrame {
         memoria.start();
         hora.start();
         simulador.start();
-        //Memory.setText(" ");
+        //memoria.setText(" ");
     }
 
     /**
@@ -47,7 +48,6 @@ public class Main extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -64,9 +64,9 @@ public class Main extends javax.swing.JFrame {
         HourSystem = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         Inicial = new javax.swing.JLabel();
-        Memory = new javax.swing.JLabel();
         Final = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        Progress = new javax.swing.JProgressBar();
 
         jLabel7.setFont(new java.awt.Font("Palatino Linotype", 2, 14)); // NOI18N
         jLabel7.setText("Limite");
@@ -76,15 +76,12 @@ public class Main extends javax.swing.JFrame {
         jTextField2.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(204, 204, 204), new java.awt.Color(0, 0, 0)));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Procesos");
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel1.setFont(new java.awt.Font("Palatino Linotype", 2, 14)); // NOI18N
         jLabel1.setText("Procesador");
-
-        jButton1.setFont(new java.awt.Font("Palatino Linotype", 2, 14)); // NOI18N
-        jButton1.setText("Agregar");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(153, 153, 153), new java.awt.Color(153, 153, 153), new java.awt.Color(153, 153, 153)));
@@ -188,13 +185,10 @@ public class Main extends javax.swing.JFrame {
         Inicial.setFont(new java.awt.Font("Palatino Linotype", 2, 12)); // NOI18N
         Inicial.setText("Memory");
 
-        Memory.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Memory.setText("jLabel11");
-        Memory.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-
         Final.setFont(new java.awt.Font("Palatino Linotype", 2, 12)); // NOI18N
         Final.setText("Memory");
 
+        jButton2.setFont(new java.awt.Font("Palatino Linotype", 2, 14)); // NOI18N
         jButton2.setText("Agregar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,17 +212,13 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(Inicial)
                     .addComponent(Final))
                 .addGap(18, 18, 18)
-                .addComponent(Memory, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                .addComponent(Progress, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(107, 107, 107)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(HourSystem)))
@@ -243,32 +233,30 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(Final)
-                                .addGap(18, 18, 18)
-                                .addComponent(Inicial))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(Memory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(5, 5, 5)))
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(101, 101, 101)
-                                .addComponent(jButton1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton2)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
                             .addComponent(HourSystem))
-                        .addGap(0, 45, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Final)
+                                .addGap(18, 18, 18)
+                                .addComponent(Inicial))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(148, 148, 148)
+                                        .addComponent(jButton2))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(22, 22, 22)
+                                        .addComponent(Progress, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 6, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -279,7 +267,7 @@ public class Main extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -290,6 +278,7 @@ public class Main extends javax.swing.JFrame {
         System.out.println(createdProcess);
         historialList.add("Proceso: " + createdProcess.getProcess_id() + " - Creado a las: " + hora.getHora());
         historialModelo.removeAllElements();
+        new Thread (new PaintProgress()).start();
         for (int i = 0; i < historialList.size(); i++) {
             historialModelo.addElement(historialList.get(i));
         }
@@ -330,6 +319,84 @@ public class Main extends javax.swing.JFrame {
         });
     }
 
+    private class PaintProgress implements Runnable{
+        @Override
+        public void run() {
+            Process process = memoria.getProcesos().get(memoria.getCurrentProcess() - 1);
+            for(int i = 2 ; i <= memoria.getProcesos().size(); i++){
+                if (process.getProcess_size() != 0 && process.getMissing_time() > memoria.getQuantum()){
+                    for (int x = 0; x <= memoria.getQuantum(); x++){
+                        Barra(memoria.getSize(), memoria.getQuantum());
+                        Pintar();
+                    }
+                    if (process.getMissing_time() == 0){
+                        Pintar();
+                        Progress.setValue(2);
+                    }
+                }else{
+                    if (process.getMissing_time() > 0 && memoria.getQuantum() !=0){
+                        while(process.getMissing_time() > 0){
+                            Barra(memoria.getSize(), memoria.getQuantum());
+                            Pintar();
+                        }
+                        if (process.getMissing_time() == 0 && memoria.getQuantum() != 0){
+                            Pintar();
+                            Progress.setValue(2);
+                        }
+                    }else{
+                        if(process.getMissing_time()==0 && memoria.getQuantum() != 0){
+                            Pintar();
+                            Progress.setValue(2);
+                        }
+                    }
+                }
+            }
+           /* while(condition!=0){
+                while (count < memoria.getSize()){
+                    if (process.getMissing_time() != 0 && process.getMissing_time() > memoria.getQuantum()){
+                        for(int i=0; i <= memoria.getQuantum(); i++){
+                            Barra(memoria.getSize(), process.getMissing_time());
+                            Pintar();
+                        }
+                        if (process.getMissing_time() == 0){
+                            Pintar();
+                            Progress.setValue(0);
+                        }
+                    }else{
+                        if(process.getMissing_time() >0 && process.getQuantum() != 0){
+                            while(process.getMissing_time()>0){
+                                Barra(memoria.getSize(),process.getMissing_time());
+                                Pintar();
+                            }
+                            if(process.getMissing_time()==0 && process.getQuantum() != 0){
+                                Pintar();
+                                Progress.setValue(0);
+                            }
+                        }else{
+                            if(process.getMissing_time()==0 && process.getQuantum() != 0){
+                                Pintar();
+                                Progress.setValue(0);
+                            }
+                        }
+                    }
+                    count++;
+                }
+                count = 0;
+            }
+        }*/
+    }
+    
+    public void Pintar(){
+        Progress.setValue(ProgressBar + 2);
+        Progress.repaint();
+    }
+    
+    public void Barra(int size, int missing){
+        int valor = 100/size;
+        int porcentaje = 100-(valor*missing);
+        ProgressBar = porcentaje;
+    }
+    
     public class Simulador extends Thread {
 
         @Override
@@ -413,9 +480,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel HourSystem;
     private javax.swing.JLabel Inicial;
     private javax.swing.JTextField Limite;
-    private javax.swing.JLabel Memory;
+    private javax.swing.JProgressBar Progress;
     private javax.swing.JList<String> historial;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
