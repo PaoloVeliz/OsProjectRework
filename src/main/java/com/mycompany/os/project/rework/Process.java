@@ -20,7 +20,7 @@ public class Process extends Thread {
     private Integer missing_time;
     private String process_status;
     private Integer quantum;
-    private Integer base; 
+    private Integer base;
     private Integer limit;
 
     public Process(String process_id) {
@@ -95,8 +95,6 @@ public class Process extends Thread {
     public void setLimit(Integer limit) {
         this.limit = limit;
     }
-    
-    
 
     @Override
     public void run() {
@@ -107,5 +105,5 @@ public class Process extends Thread {
         }
         this.missing_time = missing_time - i;
     }
-    
+
 }
