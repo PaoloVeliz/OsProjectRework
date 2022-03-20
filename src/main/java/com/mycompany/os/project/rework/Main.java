@@ -5,9 +5,12 @@
  */
 package com.mycompany.os.project.rework;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.ListModel;
 
 /**
  *
@@ -15,14 +18,20 @@ import java.util.logging.Logger;
  */
 public class Main extends javax.swing.JFrame {
 
+    ArrayList historialList = new ArrayList();
+    DefaultListModel historialModelo = new DefaultListModel();
     Reloj hora = new Reloj();
     Memoria memoria = new Memoria();
+    Simulador simulador = new Simulador();
 
     public Main() {
         initComponents();
+        historial.setModel(historialModelo);
         memoria.iniciarMemoria(100, 5, 10);
         memoria.start();
         hora.start();
+
+        simulador.start();
         //Memory.setText(" ");
     }
 
@@ -51,7 +60,7 @@ public class Main extends javax.swing.JFrame {
         Base = new javax.swing.JTextField();
         Limite = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        Historial = new javax.swing.JList<>();
+        historial = new javax.swing.JList<>();
         jLabel9 = new javax.swing.JLabel();
         HourSystem = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -117,9 +126,9 @@ public class Main extends javax.swing.JFrame {
         Limite.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         Limite.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(204, 204, 204), new java.awt.Color(0, 0, 0)));
 
-        Historial.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
-        Historial.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jScrollPane1.setViewportView(Historial);
+        historial.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
+        historial.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane1.setViewportView(historial);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -214,6 +223,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -221,6 +231,15 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1)
+                            .addComponent(jButton2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(107, 107, 107)
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(HourSystem)))
@@ -239,6 +258,17 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(Final)
                         .addGap(18, 18, 18)
                         .addComponent(Inicial)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(Final)
+                                .addGap(18, 18, 18)
+                                .addComponent(Inicial))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(Memory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(5, 5, 5)))
+
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -263,6 +293,14 @@ public class Main extends javax.swing.JFrame {
                         .addGap(24, 24, 24)
                         .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
+                                .addComponent(jButton1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton2)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(HourSystem))
+                        .addGap(0, 45, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -283,7 +321,13 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        memoria.AddProcess();
+        Process createdProcess = memoria.AddProcess();
+        System.out.println(createdProcess);
+        historialList.add("Proceso: " + createdProcess.getProcess_id() + " - Creado a las: " + hora.getHora());
+        historialModelo.removeAllElements();
+        for (int i = 0; i < historialList.size(); i++) {
+            historialModelo.addElement(historialList.get(i));
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -326,9 +370,48 @@ public class Main extends javax.swing.JFrame {
         });
     }
 
+    public class Simulador extends Thread {
+
+        @Override
+        public void run() {
+            while (true) {
+                if (memoria.getProcesos().size() > 2) {
+                    try {
+                        Calendarizador.setText(memoria.getProcesos().get(memoria.getCurrentProcess()).getProcess_id());
+                        Contador.setText(memoria.getCurrentInstruction().toString());
+
+                        Base.setText(memoria.getProcesos().get(memoria.getCurrentProcess()).getBase().toString());
+                        Limite.setText(memoria.getProcesos().get(memoria.getCurrentProcess()).getLimit().toString());
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Catch");
+                        Calendarizador.setText("Sin proceso activo");
+                        Contador.setText("");
+                        Base.setText("");
+                        Limite.setText("");
+                    }
+                } else {
+                    Calendarizador.setText("Sin proceso activo");
+                    Contador.setText("");
+                    Base.setText("");
+                    Limite.setText("");
+                }
+            }
+        }
+    }
+
     public class Reloj extends Thread {
 
         Calendar calendario;
+
+        private String hora;
+
+        public String getHora() {
+            return hora;
+        }
+
+        public void setHora(String hora) {
+            this.hora = hora;
+        }
 
         @Override
         public void run() {
@@ -351,6 +434,7 @@ public class Main extends javax.swing.JFrame {
                     horaSistema += String.valueOf(calendario.get(Calendar.SECOND)) + ":";
                 }
                 horaSistema += String.valueOf(calendario.get(Calendar.MILLISECOND)) + " hrs";
+                this.hora = horaSistema;
                 HourSystem.setText(horaSistema);
                 try {
                     Thread.sleep(1);
@@ -366,10 +450,12 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField Calendarizador;
     private javax.swing.JTextField Contador;
     private javax.swing.JLabel Final;
-    private javax.swing.JList<String> Historial;
     private javax.swing.JLabel HourSystem;
     private javax.swing.JLabel Inicial;
     private javax.swing.JTextField Limite;
+    private javax.swing.JLabel Memory;
+    private javax.swing.JList<String> historial;
+
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

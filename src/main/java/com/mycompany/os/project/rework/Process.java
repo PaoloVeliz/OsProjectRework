@@ -20,6 +20,8 @@ public class Process extends Thread {
     private Integer missing_time;
     private String process_status;
     private Integer quantum;
+    private Integer base; 
+    private Integer limit;
 
     public Process(String process_id) {
         Random random = new Random();
@@ -78,6 +80,24 @@ public class Process extends Thread {
         this.quantum = quantum;
     }
 
+    public Integer getBase() {
+        return base;
+    }
+
+    public void setBase(Integer base) {
+        this.base = base;
+    }
+
+    public Integer getLimit() {
+        return limit;
+    }
+
+    public void setLimit(Integer limit) {
+        this.limit = limit;
+    }
+    
+    
+
     @Override
     public void run() {
         int i = 0;
@@ -87,4 +107,5 @@ public class Process extends Thread {
         }
         this.missing_time = missing_time - i;
     }
+    
 }
